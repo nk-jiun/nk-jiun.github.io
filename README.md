@@ -18,7 +18,7 @@ python3 -m http.server 8000   # → http://localhost:8000
 - `assets/css/style.css` — `--accent` 색 하나로 분위기 변경
 
 ## 배포
-`main` 브랜치에 push하면 GitHub Pages(https://jwnamkung-bit.github.io)에 자동 반영됩니다.
+`main` 브랜치에 push하면 GitHub Pages(https://nk-jiun.github.io)에 자동 반영됩니다.
 
 ## 문의 폼
 [Formspree](https://formspree.io)로 전송합니다. 폼 주소는 `data/site.js`의 `formEndpoint`.
