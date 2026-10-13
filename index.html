@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NRP — nk.jiun running photography</title>
+  <meta name="description" content="러닝 대회, 런트립, 러닝 이벤트 사진 포트폴리오">
+  <!-- 인스타/카톡 링크 미리보기. 배포 후 실제 주소와 대표 이미지로 바꾸세요 -->
+  <meta property="og:title" content="NRP — nk.jiun running photography">
+  <meta property="og:description" content="달리는 순간을 기록합니다.">
+  <meta property="og:image" content="https://jwnamkung-bit.github.io/photos/hero.jpg">
+  <meta property="og:url" content="https://jwnamkung-bit.github.io/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="logo" href="./"><strong data-site="name"></strong><span data-site="fullName"></span></a>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <img class="hero-img" alt="" data-site="heroImage">
+    <div class="hero-text">
+      <p class="eyebrow" data-site="role"></p>
+      <h1 data-site="tagline"></h1>
+      <a class="btn" href="#work">사진 보기 ↓</a>
+    </div>
+  </section>
+
+  <main>
+    <section id="work" class="section">
+      <div class="section-head">
+        <h2>Work</h2>
+        <div class="filters" id="filters"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section id="about" class="section about">
+      <h2>About</h2>
+      <div class="about-body">
+        <div id="about-text"></div>
+        <ul class="history" id="history"></ul>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <h2>Contact</h2>
+      <p>대회 · 런트립 · 러닝 이벤트 촬영 문의 환영합니다.</p>
+      <div class="contact-links">
+        <a class="btn" id="ig-link" data-ig target="_blank" rel="noopener"></a>
+        <button class="btn ghost" id="mail-open" type="button">Email</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="modal" id="mail-modal">
+    <button class="modal-close" type="button" aria-label="닫기" data-close>×</button>
+    <form id="mail-form">
+      <input type="text" name="_gotcha" hidden tabindex="-1" autocomplete="off">
+      <h3>촬영 문의</h3>
+      <label>이름<input name="name" required autocomplete="name" autofocus></label>
+      <label>답장 받을 이메일<input name="email" type="email" required autocomplete="email"></label>
+      <label>문의 유형
+        <select name="type">
+          <option>대회 촬영</option>
+          <option>런트립 촬영</option>
+          <option>러닝 이벤트 촬영</option>
+          <option>기타</option>
+        </select>
+      </label>
+      <!-- Formspree는 _subject 값을 알림 메일 제목으로 쓴다 -->
+      <label>제목<input name="_subject" required maxlength="100" placeholder="예) 11월 춘천마라톤 촬영 문의"></label>
+      <label>내용<textarea name="message" rows="5" required placeholder="일정, 장소, 인원 등을 적어주세요."></textarea></label>
+      <button class="btn" type="submit">보내기</button>
+      <p class="form-status" role="status"></p>
+    </form>
+    <div class="modal-done" hidden>
+      <h3>보냈습니다.</h3>
+      <p>확인하는 대로 회신드리겠습니다.</p>
+    </div>
+  </dialog>
+
+  <footer class="footer"><span>© <span id="year"></span> <span data-site="name"></span></span><a class="ig-icon" data-ig aria-label="Instagram" target="_blank" rel="noopener"></a></footer>
+
+  <script src="data/site.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>renderHome();</script>
+</body>
+</html>

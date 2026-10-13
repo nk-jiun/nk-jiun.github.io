@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NRP — nk.jiun running photography</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="nav solid">
+    <a class="logo" href="./"><strong data-site="name"></strong><span data-site="fullName"></span></a>
+    <nav>
+      <a href="./#work">Work</a>
+      <a href="./#about">About</a>
+      <a href="./#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="section project">
+    <a class="back" href="./#work">← All work</a>
+    <div class="project-head">
+      <p class="eyebrow" id="p-meta"></p>
+      <h1 id="p-title"></h1>
+      <p id="p-desc"></p>
+    </div>
+    <div class="masonry" id="photos"></div>
+    <nav class="pager" id="pager"></nav>
+  </main>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-close" aria-label="닫기">×</button>
+    <button class="lb-prev" aria-label="이전">‹</button>
+    <img alt="">
+    <button class="lb-next" aria-label="다음">›</button>
+    <span class="lb-count"></span>
+  </div>
+
+  <footer class="footer"><span>© <span id="year"></span> <span data-site="name"></span></span><a class="ig-icon" data-ig aria-label="Instagram" target="_blank" rel="noopener"></a></footer>
+
+  <script src="data/site.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>renderProject();</script>
+</body>
+</html>
