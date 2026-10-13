@@ -119,13 +119,14 @@ function setupMailModal() {
     showDone();
     try {
       if (!SITE.formEndpoint) throw new Error("formEndpoint 미설정");
-      // Formspree가 받아서 메일로 전달 (email 필드는 답장 주소가 된다)
+      // 구글 Apps Script(scripts/contact-form.gs)가 받아서 메일로 전달.
+      // urlencoded로 보내야 CORS 사전 요청 없이 Apps Script가 e.parameter로 읽는다
       const res = await fetch(SITE.formEndpoint, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body,
+        body: new URLSearchParams(body),
       });
-      if (!res.ok) throw new Error(res.status);
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || res.status);
       form.reset();
       recordSend(sent);
     } catch {

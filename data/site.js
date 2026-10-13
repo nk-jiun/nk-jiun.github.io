@@ -8,8 +8,8 @@ window.SITE = {
   role: "Running Photographer",
   tagline: "달리는 순간을 기록합니다.",
   instagram: "nk.jiun",              // @ 없이
-  // 문의 폼 전송 주소. formspree.io 에서 폼을 만들면 나오는 https://formspree.io/f/xxxxxxx
-  formEndpoint: "https://formspree.io/f/xqpedrlp",
+  // 문의 폼 전송 주소. scripts/contact-form.gs 를 Apps Script 웹 앱으로 배포한 https://script.google.com/macros/s/.../exec
+  formEndpoint: "https://script.google.com/macros/s/AKfycbwAtqN2rSIMsDOPE8DfxY-27T06LmVLqZkqi4BvgOw5i2DuWL4YuNJe8fFvxsn-DV4J/exec",
   heroImage: "photos/hero.jpg",
   about: [
     "러닝을 좋아하고, 달리는 사람을 찍습니다.",

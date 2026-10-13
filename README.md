@@ -21,4 +21,4 @@ python3 -m http.server 8000   # → http://localhost:8000
 `main` 브랜치에 push하면 GitHub Pages(https://nk-jiun.github.io)에 자동 반영됩니다.
 
 ## 문의 폼
-[Formspree](https://formspree.io)로 전송합니다. 폼 주소는 `data/site.js`의 `formEndpoint`.
+`scripts/contact-form.gs`를 Google Apps Script 웹 앱으로 배포해 메일로 받습니다. 받는 주소는 Apps Script의 스크립트 속성 `TO_EMAIL`에만 저장하고, 웹 앱 주소는 `data/site.js`의 `formEndpoint`.
