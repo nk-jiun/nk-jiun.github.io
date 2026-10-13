@@ -9,7 +9,7 @@ window.SITE = {
   tagline: "달리는 순간을 기록합니다.",
   instagram: "nk.jiun",              // @ 없이
   // 문의 폼 전송 주소. formspree.io 에서 폼을 만들면 나오는 https://formspree.io/f/xxxxxxx
-  formEndpoint: "",
+  formEndpoint: "https://formspree.io/f/xqpedrlp",
   heroImage: "photos/hero.jpg",
   about: [
     "러닝을 좋아하고, 달리는 사람을 찍습니다.",
