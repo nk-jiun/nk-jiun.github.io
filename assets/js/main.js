@@ -82,10 +82,13 @@ function setupMailModal() {
   const done = modal.querySelector(".modal-done");
   const status = form.querySelector(".form-status");
 
+  let openedAt = 0;
+
   document.getElementById("mail-open").onclick = () => {
     form.hidden = false;
     done.hidden = true;
     status.textContent = "";
+    openedAt = Date.now();
     modal.showModal();
   };
   modal.querySelectorAll("[data-close]").forEach((b) => (b.onclick = () => modal.close()));
@@ -97,9 +100,23 @@ function setupMailModal() {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const body = new FormData(form);
+    const showDone = () => {
+      form.hidden = true;
+      done.hidden = false;
+    };
+
+    // 봇 차단: 숨김 칸이 채워졌거나 창을 연 지 3초 안에 제출하면 보내지 않고 완료인 척만 한다
+    if (body.get("_gotcha") || Date.now() - openedAt < 3000) return showDone();
+
+    // 연속 전송 제한: 같은 브라우저에서 1분에 1번, 하루 3번까지
+    const sent = recentSends();
+    if (sent.length >= 3 || (sent.length && Date.now() - sent[sent.length - 1] < 60_000)) {
+      status.textContent = "이미 문의를 보내주셨어요. 급한 건은 인스타 DM 부탁드려요.";
+      return;
+    }
+
     // 바로 완료 화면을 보여주고, 실패했을 때만 폼으로 되돌린다
-    form.hidden = true;
-    done.hidden = false;
+    showDone();
     try {
       if (!SITE.formEndpoint) throw new Error("formEndpoint 미설정");
       // Formspree가 받아서 메일로 전달 (email 필드는 답장 주소가 된다)
@@ -110,12 +127,29 @@ function setupMailModal() {
       });
       if (!res.ok) throw new Error(res.status);
       form.reset();
+      recordSend(sent);
     } catch {
       form.hidden = false;
       done.hidden = true;
       status.textContent = "전송에 실패했어요. 인스타 DM으로 연락 부탁드려요.";
     }
   });
+}
+
+// 최근 24시간 안에 이 브라우저에서 보낸 시각 목록
+function recentSends() {
+  try {
+    const list = JSON.parse(localStorage.getItem("nrp-sent") || "[]");
+    return list.filter((t) => Date.now() - t < 86_400_000);
+  } catch {
+    return [];
+  }
+}
+
+function recordSend(list) {
+  try {
+    localStorage.setItem("nrp-sent", JSON.stringify([...list, Date.now()]));
+  } catch {}
 }
 
 function renderProject() {
