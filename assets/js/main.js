@@ -51,7 +51,7 @@ function renderHome() {
       .join("");
   };
 
-  filters.innerHTML = [{ key: "all", label: "All" }, ...CATEGORIES]
+  filters.innerHTML = [{ key: "all", label: "All" }, ...CATEGORIES.filter((c) => PROJECTS.some((p) => p.category === c.key))]
     .map((c, i) => `<button data-cat="${c.key}" class="${i === 0 ? "active" : ""}">${c.label}</button>`)
     .join("");
   filters.addEventListener("click", (e) => {
@@ -163,8 +163,9 @@ function renderProject() {
   }
   const project = PROJECTS[idx];
   document.title = `${project.title} — ${SITE.name}`;
-  document.getElementById("p-meta").textContent =
-    `${categoryLabel(project.category)} · ${project.date} · ${project.location}`;
+  document.getElementById("p-meta").textContent = [categoryLabel(project.category), project.date, project.location]
+    .filter(Boolean)
+    .join(" · ");
   document.getElementById("p-title").textContent = project.title;
   document.getElementById("p-desc").textContent = project.description || "";
 

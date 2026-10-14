@@ -31,52 +31,17 @@ window.CATEGORIES = [
 ];
 
 // 위에 있을수록 먼저 노출됩니다.
-// photos: photos/<slug>/ 폴더 안 파일명 목록 (scripts/optimize.sh 실행 시 자동 출력)
+// photos: photos/<slug>/ 폴더 안 파일명 목록 (scripts/optimize.py 실행 시 자동 출력)
 // cover: 생략하면 첫 번째 사진이 커버
 window.PROJECTS = [
   {
-    slug: "seoul-marathon-2026",
-    title: "Seoul Marathon 2026",
+    slug: "goodmorning-10k-2026",
+    title: "굿몰닝 10K",
     category: "race",
-    date: "2026.03",
-    location: "Seoul",
-    description: "42.195km, 광화문에서 잠실까지.",
-    photos: demo("seoul", 14),
-  },
-  {
-    slug: "jeju-run-trip",
-    title: "Jeju Run Trip",
-    category: "trip",
-    date: "2026.05",
-    location: "Jeju",
-    description: "해안도로를 따라 달린 2박 3일.",
-    photos: demo("jeju", 10),
-  },
-  {
-    slug: "night-run-event",
-    title: "Night Run Party",
-    category: "event",
-    date: "2026.07",
-    location: "Hangang Park",
-    description: "한강 야간 러닝 이벤트.",
-    photos: demo("night", 12),
-  },
-  {
-    slug: "chuncheon-marathon-2025",
-    title: "Chuncheon Marathon 2025",
-    category: "race",
-    date: "2025.10",
-    location: "Chuncheon",
-    description: "가을의 춘천.",
-    photos: demo("chuncheon", 9),
+    date: "2026.08.30",
+    location: "",
+    description: "",
+    cover: "02.jpg",
+    photos: ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg", "08.jpg", "09.jpg", "10.jpg", "11.jpg", "12.jpg", "13.jpg", "14.jpg", "15.jpg", "16.jpg", "17.jpg", "18.jpg", "19.jpg", "20.jpg", "21.jpg", "22.jpg", "23.jpg", "24.jpg"],
   },
 ];
-
-// 데모용 플레이스홀더 이미지. 실제 사진으로 바꾸면 이 함수는 지워도 됩니다.
-function demo(seed, n) {
-  const sizes = [[1600, 1067], [1067, 1600], [1600, 1067], [1600, 900], [1200, 1500]];
-  return Array.from({ length: n }, (_, i) => {
-    const [w, h] = sizes[i % sizes.length];
-    return `https://picsum.photos/seed/${seed}${i}/${w}/${h}`;
-  });
-}

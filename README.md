@@ -9,7 +9,8 @@ python3 -m http.server 8000   # → http://localhost:8000
 
 ## 사진 추가
 1. 셀렉한 원본을 폴더 하나에 모은다
-2. `./scripts/optimize.sh <원본폴더> <slug>` → `photos/<slug>/`에 웹용(2000px) + 썸네일(900px) 생성
+2. `.venv/bin/python scripts/optimize.py <원본폴더> <slug>` → `photos/<slug>/`에 웹용(2000px) + 썸네일(900px) 생성, 위치정보 등 메타데이터 제거
+   (처음 한 번: `python3 -m venv .venv && .venv/bin/pip install pillow`)
 3. 출력된 `photos: [...]` 줄을 `data/site.js`의 해당 프로젝트에 붙여넣기
 
 ## 구조
