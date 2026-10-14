@@ -53,8 +53,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .filters button { padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px; color: var(--muted); }
 .filters button.active { border-color: var(--fg); color: var(--fg); }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: clamp(16px, 2vw, 28px); }
-.card-img { aspect-ratio: 4 / 3; overflow: hidden; background: #1a1a1a; }
+/* 세로 사진 위주라 카드도 2:3 세로형. 컴퓨터 3~4열, 휴대폰 2열 */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 40px clamp(16px, 2vw, 28px); }
+.card-img { aspect-ratio: 2 / 3; overflow: hidden; background: #1a1a1a; }
 .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
 .card:hover .card-img img { transform: scale(1.04); }
 .card-meta { padding-top: 12px; }
@@ -123,6 +124,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 @media (max-width: 720px) {
   .nav nav { gap: 16px; font-size: 13px; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 28px 10px; }
+  .card-meta { padding-top: 8px; }
+  .card-meta span { font-size: 11px; }
+  .card-meta h3 { font-size: 15px; }
   .logo { flex-direction: column; gap: 0; }
   .logo span { font-size: 10px; }
   .about-body { grid-template-columns: 1fr; gap: 24px; }
