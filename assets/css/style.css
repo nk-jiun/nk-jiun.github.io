@@ -101,8 +101,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .project-head h1 { font-family: var(--display); font-size: clamp(32px, 6vw, 64px); line-height: 1.1; font-weight: 800; margin: 8px 0 12px; }
 .project-head p:last-child { color: var(--muted); }
 
-.masonry { columns: 3 320px; column-gap: 12px; }
-.tile { display: block; width: 100%; margin-bottom: 12px; break-inside: avoid; background: #1a1a1a; }
+.masonry { display: flex; gap: 12px; align-items: flex-start; }
+.masonry .col { flex: 1; min-width: 0; }
+.tile { display: block; width: 100%; margin-bottom: 12px; background: #1a1a1a; }
 .tile img { width: 100%; height: auto; transition: opacity .3s; }
 .tile:hover img { opacity: .85; }
 
@@ -125,7 +126,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .logo { flex-direction: column; gap: 0; }
   .logo span { font-size: 10px; }
   .about-body { grid-template-columns: 1fr; gap: 24px; }
-  .masonry { columns: 2; column-gap: 6px; }
+  .masonry { gap: 6px; }
   .tile { margin-bottom: 6px; }
   .lb-prev, .lb-next { display: none; } /* 모바일은 스와이프 */
 }

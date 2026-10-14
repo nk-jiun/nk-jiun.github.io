@@ -32,7 +32,7 @@ window.CATEGORIES = [
 
 // 위에 있을수록 먼저 노출됩니다.
 // photos: photos/<slug>/ 폴더 안 파일명 목록 (scripts/optimize.py 실행 시 자동 출력)
-// cover: 생략하면 첫 번째 사진이 커버
+// cover: 생략하면 첫 번째 사진이 커버 / coverPosition: 카드에서 잘릴 때 보일 위치
 window.PROJECTS = [
   {
     slug: "goodmorning-10k-2026",
@@ -41,7 +41,8 @@ window.PROJECTS = [
     date: "2026.08.30",
     location: "스타필드 수원",
     description: "영업 시작 전 텅 빈 스타필드 수원. 별마당도서관에서 출발해 쇼핑몰 안을 달린 1,000명의 실내 10K 레이스.",
-    cover: "02.jpg",
+    cover: "09.jpg",
+    coverPosition: "50% 25%", // 목록 카드에서 보일 위치 (가로% 세로%)
     photos: ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg", "08.jpg", "09.jpg", "10.jpg", "11.jpg", "12.jpg", "13.jpg", "14.jpg", "15.jpg", "16.jpg", "17.jpg", "18.jpg", "19.jpg", "20.jpg", "21.jpg", "22.jpg", "23.jpg", "24.jpg"],
   },
 ];

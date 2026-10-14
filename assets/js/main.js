@@ -41,7 +41,7 @@ function renderHome() {
       .map(
         (p) => `
         <a class="card" href="project.html?p=${encodeURIComponent(p.slug)}">
-          <div class="card-img"><img src="${coverUrl(p)}" alt="${p.title}" loading="lazy"></div>
+          <div class="card-img"><img src="${coverUrl(p)}" alt="${p.title}" loading="lazy" style="object-position: ${p.coverPosition || "50% 50%"}"></div>
           <div class="card-meta">
             <span>${categoryLabel(p.category)} · ${p.date}</span>
             <h3>${p.title}</h3>
@@ -170,12 +170,21 @@ function renderProject() {
   document.getElementById("p-desc").textContent = project.description || "";
 
   const photos = document.getElementById("photos");
-  photos.innerHTML = project.photos
-    .map(
-      (f, i) =>
-        `<button class="tile" data-i="${i}"><img src="${photoUrl(project, f, true)}" alt="${project.title} ${i + 1}" loading="lazy"></button>`
-    )
-    .join("");
+  // 열마다 i, i+n, i+2n... 번째 사진을 넣어 왼쪽→오른쪽, 위→아래 순서로 읽히게 한다
+  const tiles = project.photos.map(
+    (f, i) =>
+      `<button class="tile" data-i="${i}"><img src="${photoUrl(project, f, true)}" alt="${project.title} ${i + 1}" loading="lazy"></button>`
+  );
+  const mobile = window.matchMedia("(max-width: 720px)");
+  const layout = () => {
+    const n = mobile.matches ? 2 : 3;
+    photos.innerHTML = Array.from(
+      { length: n },
+      (_, c) => `<div class="col">${tiles.filter((_, i) => i % n === c).join("")}</div>`
+    ).join("");
+  };
+  mobile.addEventListener("change", layout);
+  layout();
 
   const prev = PROJECTS[idx - 1];
   const next = PROJECTS[idx + 1];
