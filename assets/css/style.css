@@ -89,6 +89,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .modal textarea { resize: vertical; }
 .modal [type=submit] { margin-top: 4px; }
 .modal-close { position: absolute; top: 10px; right: 14px; font-size: 28px; color: var(--muted); }
+.field-error { color: #e08a6d; font-size: 12px; min-height: 0; }
+.field-error:empty { display: none; }
+.modal [aria-invalid="true"] { border-color: #e08a6d; }
+.form-note { font-size: 12px; color: var(--muted); }
 .form-status { font-size: 13px; color: var(--muted); min-height: 1em; }
 .modal-done { padding: 16px 0 8px; }
 .modal-done h3 { margin-bottom: 8px; }

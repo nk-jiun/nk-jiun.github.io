@@ -114,8 +114,16 @@ function setupMailModal() {
     if (e.target === modal) modal.close();
   });
 
+  // 연락처는 입력하는 대로 010-0000-0000 형태로 맞춰 준다
+  form.phone.addEventListener("input", () => {
+    form.phone.value = formatPhone(form.phone.value);
+  });
+  // 고치기 시작하면 해당 칸의 오류 문구를 지운다
+  form.addEventListener("input", (e) => setFieldError(e.target, ""));
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (!validateForm(form)) return;
     const body = new FormData(form);
     const showDone = () => {
       form.hidden = true;
@@ -152,6 +160,55 @@ function setupMailModal() {
       status.textContent = "전송에 실패했어요. 인스타 DM으로 연락 부탁드려요.";
     }
   });
+}
+
+const FIELD_RULES = {
+  name: (v) => (/^[가-힣a-zA-Z][가-힣a-zA-Z\s.'-]{1,29}$/.test(v) ? "" : "이름을 2자 이상, 한글 또는 영문으로 입력해 주세요."),
+  phone: (v) => (isValidPhone(v) ? "" : "휴대폰 번호를 정확히 입력해 주세요."),
+  email: (v) => (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? "" : "이메일 주소를 정확히 입력해 주세요."),
+  _subject: (v) => (v ? "" : "제목을 입력해 주세요."),
+  message: (v) => (v.length >= 10 ? "" : "내용을 10자 이상 적어주세요."),
+};
+
+// 전부 검사해서 각 칸 아래에 오류를 표시하고, 첫 번째 틀린 칸으로 이동
+function validateForm(form) {
+  let first = null;
+  for (const [name, rule] of Object.entries(FIELD_RULES)) {
+    const input = form.elements[name];
+    const error = rule(input.value.trim());
+    setFieldError(input, error);
+    if (error && !first) first = input;
+  }
+  first?.focus();
+  return !first;
+}
+
+function setFieldError(input, message) {
+  const label = input.closest?.("label");
+  if (!label) return;
+  let el = label.querySelector(".field-error");
+  if (!el) {
+    el = document.createElement("small");
+    el.className = "field-error";
+    label.append(el);
+  }
+  el.textContent = message;
+  input.setAttribute("aria-invalid", message ? "true" : "false");
+}
+
+// 한국 휴대폰 번호: 010-[2-9]XXX-XXXX, 011/016~019는 가운데 3~4자리. 같은 숫자 반복은 거부
+function isValidPhone(value) {
+  const d = value.replace(/\D/g, "");
+  const ok = /^010[2-9]\d{7}$/.test(d) || /^01[16789][2-9]\d{6,7}$/.test(d);
+  return ok && !/^(\d)\1{7}$/.test(d.slice(-8));
+}
+
+function formatPhone(value) {
+  const d = value.replace(/\D/g, "").slice(0, 11);
+  if (d.length < 4) return d;
+  if (d.length < 8) return `${d.slice(0, 3)}-${d.slice(3)}`;
+  const mid = d.length === 11 ? 7 : 6;
+  return `${d.slice(0, 3)}-${d.slice(3, mid)}-${d.slice(mid)}`;
 }
 
 // 최근 24시간 안에 이 브라우저에서 보낸 시각 목록

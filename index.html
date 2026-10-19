@@ -15,9 +15,9 @@
   <meta name="theme-color" content="#121813">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=20261019131124">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261019131528">
   <!-- 테마: theme-forest.css(녹음) / theme-original.css(원래 검정+형광) -->
-  <link rel="stylesheet" href="assets/css/theme-forest.css?v=20261019131124">
+  <link rel="stylesheet" href="assets/css/theme-forest.css?v=20261019131528">
 </head>
 <body>
   <header class="nav">
@@ -67,10 +67,11 @@
 
   <dialog class="modal" id="mail-modal">
     <button class="modal-close" type="button" aria-label="닫기" data-close>×</button>
-    <form id="mail-form">
+    <form id="mail-form" novalidate>
       <input type="text" name="_gotcha" hidden tabindex="-1" autocomplete="off">
       <h3>촬영 문의</h3>
-      <label>이름<input name="name" required autocomplete="name" autofocus></label>
+      <label>이름<input name="name" required maxlength="30" autocomplete="name" autofocus></label>
+      <label>연락처<input name="phone" type="tel" inputmode="numeric" required maxlength="13" autocomplete="tel" placeholder="010-0000-0000"></label>
       <label>답장 받을 이메일<input name="email" type="email" required autocomplete="email"></label>
       <label>문의 유형
         <select name="type">
@@ -83,6 +84,7 @@
       <!-- _subject 값은 알림 메일 제목이 된다 (scripts/contact-form.gs) -->
       <label>제목<input name="_subject" required maxlength="100" placeholder="예) 11월 춘천마라톤 촬영 문의"></label>
       <label>내용<textarea name="message" rows="5" required minlength="10" placeholder="일정, 장소, 인원 등을 적어주세요."></textarea></label>
+      <p class="form-note">이름·연락처·이메일은 문의 답변에만 사용합니다.</p>
       <button class="btn" type="submit">보내기</button>
       <p class="form-status" role="status"></p>
     </form>
@@ -94,8 +96,8 @@
 
   <footer class="footer"><span>© <span id="year"></span> <span data-site="name"></span></span><a class="ig-icon" data-ig aria-label="Instagram" target="_blank" rel="noopener"></a></footer>
 
-  <script src="data/site.js?v=20261019131124"></script>
-  <script src="assets/js/main.js?v=20261019131124"></script>
+  <script src="data/site.js?v=20261019131528"></script>
+  <script src="assets/js/main.js?v=20261019131528"></script>
   <script>renderHome();</script>
 </body>
 </html>
