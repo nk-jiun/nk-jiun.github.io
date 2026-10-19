@@ -23,3 +23,10 @@ python3 -m http.server 8000   # → http://localhost:8000
 
 ## 문의 폼
 `scripts/contact-form.gs`를 Google Apps Script 웹 앱으로 배포해 메일로 받습니다. 받는 주소는 Apps Script의 스크립트 속성 `TO_EMAIL`에만 저장하고, 웹 앱 주소는 `data/site.js`의 `formEndpoint`.
+
+## 테마
+색상은 `assets/css/theme-*.css`에 있고, `index.html`·`project.html`의 테마 `<link>` 한 줄로 고른다.
+- `theme-forest.css` — 녹음(현재)
+- `theme-original.css` — 원래 검정 + 형광 연두
+
+녹음 테마 적용 전 상태는 git 태그 `theme-original`로 남아 있다.

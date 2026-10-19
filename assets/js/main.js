@@ -63,8 +63,25 @@ function renderHome() {
   drawGrid("all");
 
   document.getElementById("about-text").innerHTML = SITE.about.map((t) => `<p>${t}</p>`).join("");
+  const now = new Date();
+  const thisMonth = now.getFullYear() * 100 + now.getMonth() + 1;
+  const isUpcoming = (date) => {
+    const [y, m] = date.split(".").map(Number);
+    return m > 0 && y * 100 + m > thisMonth;
+  };
   document.getElementById("history").innerHTML = SITE.history
-    .map((h) => `<li><span>${h.year}</span>${h.text}</li>`)
+    .map(
+      (g) => `
+      <div class="history-group">
+        <h3>${g.group}</h3>
+        <ul>${g.items
+          .map(
+            (h) =>
+              `<li><span>${h.date}</span><p>${h.text}${isUpcoming(h.date) ? ' <em class="badge">예정</em>' : ""}</p></li>`
+          )
+          .join("")}</ul>
+      </div>`
+    )
     .join("");
 
   setupMailModal();

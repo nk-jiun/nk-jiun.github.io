@@ -2,6 +2,6 @@
 # 커밋할 때마다 HTML의 CSS/JS 주소에 ?v=<시각> 을 붙여, 방문자 브라우저가 예전 파일을 캐시에서 쓰지 않게 한다
 v=$(date +%Y%m%d%H%M%S)
 for f in index.html project.html; do
-  sed -i '' -E "s#(assets/css/style\.css|assets/js/main\.js|data/site\.js)(\?v=[0-9]+)?\"#\1?v=$v\"#g" "$f"
+  sed -i '' -E "s#(assets/css/[a-z-]+\.css|assets/js/main\.js|data/site\.js)(\?v=[0-9]+)?\"#\1?v=$v\"#g" "$f"
   git add "$f"
 done
