@@ -175,7 +175,7 @@ function renderProject() {
   const slug = new URLSearchParams(location.search).get("p");
   const idx = PROJECTS.findIndex((p) => p.slug === slug);
   if (idx === -1) {
-    location.replace("./#portfolio");
+    location.replace("./#albums");
     return;
   }
   const project = PROJECTS[idx];
