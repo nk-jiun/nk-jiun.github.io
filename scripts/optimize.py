@@ -1,7 +1,7 @@
 """원본 사진 폴더를 웹용으로 줄여 photos/<slug>/ 에 넣고, site.js 에 붙일 목록을 출력한다.
 
 - 긴 변 2000px(원본 보기) + 900px(썸네일)
-- 회전 정보는 픽셀에 반영하고, EXIF/GPS 등 메타데이터는 모두 제거 (색 프로파일만 유지)
+- 회전 정보는 픽셀에 반영하고, 카메라/렌즈/GPS 등 메타데이터는 제거 (촬영 시각과 색 프로파일만 유지)
 - 파일명은 01.jpg, 02.jpg ... (원본 파일명 순서)
 
 사용법: .venv/bin/python scripts/optimize.py <원본폴더> <slug>
@@ -14,6 +14,18 @@ from PIL import Image, ImageOps
 
 SIZES = {"": (2000, 82), "thumb": (900, 75)}  # 하위폴더: (긴 변, JPEG 품질)
 EXTS = {".jpg", ".jpeg", ".png", ".heic", ".tif", ".tiff"}
+EXIF_IFD = 0x8769
+KEEP_TAGS = (0x9003, 0x9011)  # 촬영 시각(DateTimeOriginal), 시간대(OffsetTimeOriginal)
+
+
+def taken_exif(img: Image.Image) -> Image.Exif:
+    """원본 EXIF에서 촬영 시각만 골라 담은 새 EXIF를 만든다."""
+    src = img.getexif().get_ifd(EXIF_IFD)
+    exif = Image.Exif()
+    kept = {tag: src[tag] for tag in KEEP_TAGS if tag in src}
+    if kept:
+        exif.get_ifd(EXIF_IFD).update(kept)
+    return exif
 
 
 def main(src: Path, slug: str) -> None:
@@ -27,14 +39,15 @@ def main(src: Path, slug: str) -> None:
         name = f"{i:02d}.jpg"
         with Image.open(path) as img:
             icc = img.info.get("icc_profile")
+            exif = taken_exif(img)
             img = ImageOps.exif_transpose(img).convert("RGB")
             for sub, (edge, quality) in SIZES.items():
                 dest = out / sub / name
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 copy = img.copy()
                 copy.thumbnail((edge, edge), Image.LANCZOS)
-                # exif를 넘기지 않으므로 메타데이터는 저장되지 않는다
-                copy.save(dest, "JPEG", quality=quality, optimize=True, progressive=True, icc_profile=icc)
+                # 촬영 시각만 담은 exif를 넘기므로 그 외 메타데이터는 저장되지 않는다
+                copy.save(dest, "JPEG", quality=quality, optimize=True, progressive=True, icc_profile=icc, exif=exif)
         names.append(name)
         print(f"  {name} ← {path.name}")
 
